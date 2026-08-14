@@ -1,23 +1,23 @@
 Voxel Architect v5.1
 
-Aplikasi web hand-tracking 3D voxel builder — bangun kubus 3D hanya dengan gerakan tangan di depan webcam.
+Aplikasi web hand-tracking 3D voxel builder bangun kubus 3D hanya dengan gerakan tangan di depan webcam.
 
-Library utama:
-- MediaPipe Hands — deteksi 21 titik landmark tangan real-time dari webcam
-- Three.js (ES modules) — render voxel 3D di-overlay di atas video webcam
+Library utama
+- MediaPipe Hands : deteksi 21 titik landmark tangan real time dari webcam
+- Three.js (ES modules) : render voxel 3D di-overlay di atas video webcam
 
-Semua library dimuat dari CDN jsdelivr — versi dikunci, tidak akan tiba-tiba berubah.
+Semua library dimuat dari CDN jsdelivr versi dikunci, tidak akan tiba-tiba berubah.
 
 Cara Menjalankan
 
-Kamera browser (`getUserMedia`) tidak akan jalan kalau `index.html` dibuka langsung dengan cara double-click (`file://...`). Wajib dijalankan lewat server lokal — persis seperti `127.0.0.1:5500` yang terlihat di video contoh.
+Kamera browser (`getUserMedia`) tidak akan jalan kalau `index.html` dibuka langsung dengan cara double click (`file://...`). Wajib dijalankan lewat server lokal persis seperti `127.0.0.1:5500`.
 
 1. Buka folder ini di VS Code.
 2. Install ekstensi "Live Server" (by Ritwick Dey) dari tab Extensions, kalau belum ada.
 3. Klik kanan pada `index.html` → "Open with Live Server".
 4. Browser akan terbuka otomatis ke `http://127.0.0.1:5500`.
 5. Izinkan akses kamera saat diminta browser.
-6. Tunggu 1-2 detik sampai overlay "Mengaktifkan kamera..." hilang — lalu mulai gesture!
+6. Tunggu 1-2 detik sampai overlay "Mengaktifkan kamera" hilang lalu mulai gesture!
 
 > Alternatif tanpa VS Code: `python3 -m http.server 5500` di folder ini, lalu buka `http://127.0.0.1:5500`.
 
@@ -25,21 +25,21 @@ Browser yang disarankan: Chrome atau Edge versi terbaru (butuh WebGL + getUserMe
 
 Panduan Gesture
 
-- Pinch (jempol + telunjuk nempel, jari lain santai) — Bangun 1 voxel di posisi tangan
-- 1 tangan mengepal (fist), lalu digeser — Pegang & geser seluruh struktur  
-- Kedua telapak terbuka, lalu digeser — Putar (rotate) seluruh struktur
-- Kedua tangan mengepal bersamaan — Hard reset posisi & rotasi (voxel tidak hilang)
-- Victory tangan kiri (di layar) — Ganti warna semua voxel (siklus palet)
-- Victory tangan kanan (di layar) — Nyalakan mode disco (warna berputar-putar)
-- Telapak terbuka saat mode disco aktif — Matikan mode disco
+- Pinch (jempol + telunjuk nempel, jari lain santai) Bangun 1 voxel di posisi tangan
+- 1 tangan mengepal (fist), lalu digeser Pegang & geser seluruh struktur  
+- Kedua telapak terbuka, lalu digeser Putar (rotate) seluruh struktur
+- Kedua tangan mengepal bersamaan Hard reset posisi & rotasi (voxel tidak hilang)
+- Victory tangan kiri (di layar) Ganti warna semua voxel (siklus palet)
+- Victory tangan kanan (di layar) Nyalakan mode disco (warna berputar-putar)
+- Telapak terbuka saat mode disco aktif Matikan mode disco
 
 Kiri/kanan ditentukan dari posisi tangan di layar (bukan tangan asli kamu), supaya konsisten dengan tampilan cermin (mirror) di layar.
 
 Struktur File
 
-- `index.html` — struktur halaman, HUD, memuat library dari CDN
-- `style.css` — tampilan HUD ala "terminal cyberpunk" + layout fullscreen
-- `script.js` — semua logic: deteksi gesture, kontrol Three.js, state machine HUD
+- `index.html`:struktur halaman, HUD, memuat library dari CDN
+- `style.css` :tampilan HUD ala "terminal cyberpunk" + layout fullscreen
+- `script.js` :semua logic: deteksi gesture, kontrol Three.js, state machine HUD
 
 Kustomisasi Cepat
 
@@ -61,7 +61,7 @@ const CONFIG =
   moveInertiaDamping: 0.88,   :
 
 
-> Kalau device terasa berat/nge-lag: set `enableBloom: false` di `CONFIG` — aplikasi otomatis fallback ke render biasa tanpa glow, tetap berfungsi penuh.
+> Kalau device terasa berat/nge-lag: set `enableBloom: false` di `CONFIG` aplikasi otomatis fallback ke render biasa tanpa glow, tetap berfungsi penuh.
 
 Troubleshooting
 
