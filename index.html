@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Voxel Architect v5.1 — Hand-Tracking Voxel Builder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:," />
+
+  <!-- Import map: maps bare specifier 'three' to the ES module build from CDN
+       (pinned version so it doesn't suddenly change). Needed so the
+       postprocessing modules (bloom etc.), which internally do
+       `import ... from 'three'`, can be resolved by the browser correctly. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- Video stage is mirrored (scaleX(-1)) so it looks like a selfie mirror:
+       your right hand appears on the right side of the screen, etc. -->
+  <div id="mirror-stage">
+    <video id="webcam" autoplay playsinline muted></video>
+    <canvas id="skeleton-canvas"></canvas>
+    <canvas id="three-canvas"></canvas>
+  </div>
+
+  <!-- HUD is NOT mirrored so the text always reads normally -->
+  <div id="hud">
+    <div id="hud-panel">
+      <div class="hud-line">
+        <span class="k cyan">BIO_SYNC:</span>
+        <span class="v cyan bold">ARCHITECT_OS_v5.1</span>
+      </div>
+      <div class="hud-line">
+        <span class="k cyan">STATE:</span>
+        <span id="hud-state" class="v white">SYSTEM: INITIALIZING...</span>
+      </div>
+      <div class="hud-line">
+        <span class="k cyan">VOXELS:</span>
+        <span id="hud-voxels" class="v white bold">0</span>
+      </div>
+
+      <div class="hud-divider"></div>
+
+      <div class="hud-line legend red">FIST: HOLD TO GRAB & DRAG STRUCTURE</div>
+      <div class="hud-line legend pink">PINCH (👍+☝️): HOLD TO BUILD VOXEL</div>
+      <div class="hud-line legend white2">BOTH PALMS OPEN: HOLD TO ROTATE</div>
+      <div class="hud-line legend purple">BOTH FISTS: HOLD TO HARD RESET VIEW</div>
+      <div class="hud-line legend green">L-VICTORY: CYCLE COLOR | R-VICTORY: DISCO (PALM TO STOP)</div>
+    </div>
+  </div>
+
+  <!-- Loading overlay, hides automatically once camera + hand model are ready -->
+  <div id="loading-overlay">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <p id="loading-text">Mengaktifkan kamera & memuat model deteksi tangan…</p>
+    </div>
+  </div>
+
+  <!-- Error banner, hidden unless there's a problem (camera permission denied, etc.) -->
+  <div id="error-banner" hidden>
+    <strong>⚠ Terjadi masalah</strong>
+    <p id="error-text"></p>
+    <p class="error-hint">
+      Pastikan file ini dibuka lewat server lokal (contoh: ekstensi "Live Server" di VS Code),
+      bukan langsung dibuka sebagai file, dan izinkan akses kamera saat diminta browser.
+    </p>
+  </div>
+
+  <!-- MediaPipe scripts (classic script, not module): must load before script.js
+       so window.Hands / window.Camera are available when script.js runs. -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" crossorigin="anonymous"></script>
+
+  <!-- script.js loaded as ES module so it can import Three.js + post-processing addons
+       from CDN. -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>
