@@ -2,13 +2,13 @@ Voxel Architect v5.1
 
 Aplikasi web hand_tracking 3D voxel builder bangun kubus 3D hanya dengan gerakan tangan di depan webcam.
 
-Library utama:
+Library utama
 - MediaPipe Hands: deteksi 21 titik landmark tangan real time dari webcam
 - Three.js (ES modules): render voxel 3D di-overlay di atas video webcam
 
 Semua library dimuat dari CDN jsdelivr versi dikunci, tidak akan tiba-tiba berubah.
 
-Cara Menjalankan:
+Cara Menjalankan
 Kamera browser (`getUserMedia`) tidak akan jalan kalau `index.html` dibuka langsung dengan cara double click (`file://...`). Wajib dijalankan lewat server lokal persis seperti `127.0.0.1:5500`.
 
 1. Buka folder ini di VS Code.
@@ -22,7 +22,7 @@ Kamera browser (`getUserMedia`) tidak akan jalan kalau `index.html` dibuka langs
 
 Browser yang disarankan: Chrome atau Edge versi terbaru (butuh WebGL + getUserMedia).
 
-Panduan Gesture:
+Panduan Gesture
 - Pinch (jempol + telunjuk nempel, jari lain santai) Bangun 1 voxel di posisi tangan
 - 1 tangan mengepal (fist), lalu digeser Pegang & geser seluruh struktur  
 - Kedua telapak terbuka, lalu digeser Putar (rotate) seluruh struktur
@@ -63,7 +63,7 @@ const CONFIG =
 
 Troubleshooting
 
-- Layar putih / kamera tidak nyala → pastikan dibuka lewat `http://127.0.0.1:5500` (Live Server), bukan `file://`. Cek juga izin kamera di ikon gembok address bar browser.
+- Layar putih / kamera tidak nyala, pastikan dibuka lewat `http://127.0.0.1:5500` (Live Server), bukan `file://`. Cek juga izin kamera di ikon gembok address bar browser.
 - Muncul banner error merah → baca pesannya, biasanya soal izin kamera atau koneksi internet (library dimuat dari CDN, jadi butuh internet saat pertama kali load).
 - Gestur kurang responsif, coba pastikan pencahayaan cukup terang dan tangan terlihat jelas di kamera, atau kecilkan `pinchThresholdRatio` / sesuaikan `minDetectionConfidence` di `script.js`.
 - Ada tulisan kuning "deprecated" soal `three.min.js` di console DevTools, tidak akan muncul lagi (versi ini sudah pakai Three.js ES module + import map, bukan build classic).
