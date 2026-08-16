@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="data:," />
 
-  
+  <!-- Import map: maps bare specifier 'three' to the ES module build from CDN
+       (pinned version so it doesn't suddenly change). Needed so the
+       postprocessing modules (bloom etc.), which internally do
+       `import ... from 'three'`, can be resolved by the browser correctly. -->
   <script type="importmap">
   {
     "imports": {
@@ -19,14 +22,15 @@
 
 <body>
 
-  
+  <!-- Video stage is mirrored (scaleX(-1)) so it looks like a selfie mirror:
+       your right hand appears on the right side of the screen, etc. -->
   <div id="mirror-stage">
     <video id="webcam" autoplay playsinline muted></video>
     <canvas id="skeleton-canvas"></canvas>
     <canvas id="three-canvas"></canvas>
   </div>
 
-  
+  <!-- HUD is NOT mirrored so the text always reads normally -->
   <div id="hud">
     <div id="hud-panel">
       <div class="hud-line">
@@ -52,7 +56,7 @@
     </div>
   </div>
 
-  
+  <!-- Loading overlay, hides automatically once camera + hand model are ready -->
   <div id="loading-overlay">
     <div class="loading-box">
       <div class="spinner"></div>
@@ -60,7 +64,7 @@
     </div>
   </div>
 
-  
+  <!-- Error banner, hidden unless there's a problem (camera permission denied, etc.) -->
   <div id="error-banner" hidden>
     <strong>⚠ Terjadi masalah</strong>
     <p id="error-text"></p>
@@ -70,11 +74,13 @@
     </p>
   </div>
 
-  
+  <!-- MediaPipe scripts (classic script, not module): must load before script.js
+       so window.Hands / window.Camera are available when script.js runs. -->
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.js" crossorigin="anonymous"></script>
 
-  
+  <!-- script.js loaded as ES module so it can import Three.js + post-processing addons
+       from CDN. -->
   <script type="module" src="script.js"></script>
 
 </body>
